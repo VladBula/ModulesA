@@ -1,32 +1,33 @@
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { CredentialsInterceptor } from './services/credentials.interceptor';
+import {NgModule} from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
+import {CredentialsInterceptor} from './core/interceptors/credentials.interceptor';
 
-import { AppComponent } from './app.component';
-import { TodosComponent } from './components/todos/todos.component';
-import { LoginComponent } from './components/login/login.component';
-import { UsersComponent } from './components/users/users.component';
-import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import {AppComponent} from './app.component';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 
-import { AppRoutingRoutingModule } from './app-routing-routing.module';
-import { HomeComponent } from './components/home/home.component';
-import { NavigationComponent } from './components/navigation/navigation.component';
+import {AppRoutingRoutingModule} from './app-routing-routing.module';
+import {HomeModule} from "./home/home.module";
+import {AuthModule} from "./auth/auth.module";
+import {TodosModule} from "./todos/todos.module";
+import {UsersModule} from "./users/users.module";
+import {SharedModule} from "./shared/shared.module";
 
 @NgModule({
   declarations: [
     AppComponent,
-    TodosComponent,
-    LoginComponent,
-    UsersComponent,
-    HomeComponent,
-    NavigationComponent,
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
-    AppRoutingRoutingModule
+    AppRoutingRoutingModule,
+    HomeModule,
+    AuthModule,
+    TodosModule,
+    UsersModule,
+    SharedModule
   ],
-  providers: [{ provide: HTTP_INTERCEPTORS, useClass: CredentialsInterceptor, multi: true }],
+  providers: [{provide: HTTP_INTERCEPTORS, useClass: CredentialsInterceptor, multi: true}],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}
